@@ -2,7 +2,6 @@
 
 
 <html lang="pl">
-
 <head>
 
     <meta charset="utf-8">
@@ -24,18 +23,13 @@
     <link href="<c:url value=" /theme/css/sb-admin-2.css" />" rel="stylesheet">
 
 
-
-
 </head>
-
 <body id="page-top">
-
 
 <!-- Page Wrapper -->
 <div id="wrapper">
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
@@ -43,7 +37,6 @@
             </div>
             <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
         </a>
-
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
@@ -57,11 +50,9 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
 
     </ul>
     <!-- End of Sidebar -->
@@ -74,12 +65,11 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
             </nav>
 
 
 
 
-    <!-- End of Topbar -->
+
 
 

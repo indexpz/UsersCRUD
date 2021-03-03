@@ -11,11 +11,22 @@
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i> Dodaj użytkownika</a>
     </div>
+    <div>
+
+        <form method="post">
 
 
+                <p><input type="text" name="name" placeholder="imię"></p>
+                <p> <input type="text" name="email" placeholder="email"></p>
 
+<%--                UWAGA zmienić na type="password"--%>
+                <p> <input type="text" name="password" placeholder="hasło"></p>
+                <p> <input type="submit" name="save" value="Zapisz"></p>
 
+        </form>
     </div>
+
+</div>
 
 <%@ include file="/users/footer.jsp" %>
 
