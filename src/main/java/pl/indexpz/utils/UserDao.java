@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User {
+public class UserDao extends User {
     /**
      * CRUD
      */
@@ -28,10 +28,10 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
     }
 
 
-    public pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User create(pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User user) {
+    public User create(User user) {
         int tempId = 0;
         if (!isUserExist(user)) {
-            try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+            try (Connection db_manager_conn = DbUtil.getConnection()) {
                 String name = user.getName();
                 String password = hashPassword(user.getPassword());
                 String email = user.getEmail();
@@ -63,13 +63,13 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
-    public pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User read(int userId) {
-        try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+    public User read(int userId) {
+        try (Connection db_manager_conn = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(READ_USER_QUERY);
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User tempUser = new pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User();
+                User tempUser = new User();
                 tempUser.setId(resultSet.getInt("id"));
                 tempUser.setName(resultSet.getString("name"));
                 tempUser.setPassword(resultSet.getString("password"));
@@ -83,10 +83,10 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
         return null;
     }
 
-    public void update(pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User user) {
+    public void update(User user) {
         int tempId = 0;
         if (!isIdExist(user.getId()) || !isUserExist(user)) {
-            try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+            try (Connection db_manager_conn = DbUtil.getConnection()) {
                 PreparedStatement preparedStatement = db_manager_conn.prepareStatement(UPDATE_USER_QUERY);
                 int id = user.getId();
                 String name = user.getName();
@@ -109,7 +109,7 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
 
     public void delete(int userId) {
         if (!isIdExist(userId)) {
-            try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+            try (Connection db_manager_conn = DbUtil.getConnection()) {
                 PreparedStatement preparedStatement = db_manager_conn.prepareStatement(REMOVE_USER_QUERY);
                 preparedStatement.setInt(1, userId);
                 preparedStatement.executeUpdate();
@@ -123,14 +123,14 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
     }
 
 
-    public pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User[] findAll() {
-        pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User[] tempUsers = new pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User[0];
+    public User[] findAll() {
+        User[] tempUsers = new User[0];
 
-        try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+        try (Connection db_manager_conn = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(All_QUERY);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User tempUser = new pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User();
+                User tempUser = new User();
                 tempUser.setId(resultSet.getInt("id"));
                 tempUser.setName(resultSet.getString("name"));
                 tempUser.setPassword(resultSet.getString("password"));
@@ -148,16 +148,16 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
     }
 
 
-    private pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User[] addToArray(pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User user, pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User[] users) {
-        pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User[] tmpUsers = Arrays.copyOf(users, users.length + 1);
+    private User[] addToArray(User user, User[] users) {
+        User[] tmpUsers = Arrays.copyOf(users, users.length + 1);
         tmpUsers[users.length] = user;
         return tmpUsers;
     }
 
 
-    public int getUserIdFromDB(pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User user) {
+    public int getUserIdFromDB(User user) {
         int id = 0;
-        try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+        try (Connection db_manager_conn = DbUtil.getConnection()) {
 //            String sql = "SELECT id FROM users where name LIKE  + '"+ user.getEmail() + "';";
             String sql = "SELECT id FROM users where name LIKE  + '" + user.getEmail() + "';";
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(sql);
@@ -176,8 +176,8 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
     }
 
     public static void showTableOfUsers() {
-        try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
-            DBUtil.printData(db_manager_conn, All_QUERY, "id", "name", "password", "email");
+        try (Connection db_manager_conn = DbUtil.getConnection()) {
+            DbUtil.printData(db_manager_conn, All_QUERY, "id", "name", "password", "email");
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new RuntimeException("Nie udało połączyć się z bazą danych. " + ex);
@@ -186,7 +186,7 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
 
     public boolean isIdExist(int id) {
         boolean result = false;
-        try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+        try (Connection db_manager_conn = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(All_QUERY);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -203,9 +203,9 @@ public class UserDao extends pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmana
         return result;
     }
 
-    public boolean isUserExist(pl.indexpz._3_mysql._16_warsztat_1_podejscie.dbmanager.entity.User user) {
+    public boolean isUserExist(User user) {
         boolean result = false;
-        try (Connection db_manager_conn = DBUtil.conn("db_manager")) {
+        try (Connection db_manager_conn = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(All_QUERY);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
