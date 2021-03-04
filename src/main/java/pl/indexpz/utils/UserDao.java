@@ -2,6 +2,7 @@ package pl.indexpz.utils;
 
 
 import org.mindrot.jbcrypt.BCrypt;
+import pl.indexpz.robocze.DbUtil_old2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +32,12 @@ public class UserDao extends User {
     public User create(User user) {
         int tempId = 0;
         if (!isUserExist(user)) {
-            try (Connection db_manager_conn = DbUtil.getConnection()) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
                 String name = user.getName();
                 String password = hashPassword(user.getPassword());
                 String email = user.getEmail();
@@ -64,7 +70,14 @@ public class UserDao extends User {
     }
 
     public User read(int userId) {
-        try (Connection db_manager_conn = DbUtil.getConnection()) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(READ_USER_QUERY);
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -86,7 +99,14 @@ public class UserDao extends User {
     public void update(User user) {
         int tempId = 0;
         if (!isIdExist(user.getId()) || !isUserExist(user)) {
-            try (Connection db_manager_conn = DbUtil.getConnection()) {
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
                 PreparedStatement preparedStatement = db_manager_conn.prepareStatement(UPDATE_USER_QUERY);
                 int id = user.getId();
                 String name = user.getName();
@@ -109,7 +129,14 @@ public class UserDao extends User {
 
     public void delete(int userId) {
         if (!isIdExist(userId)) {
-            try (Connection db_manager_conn = DbUtil.getConnection()) {
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
                 PreparedStatement preparedStatement = db_manager_conn.prepareStatement(REMOVE_USER_QUERY);
                 preparedStatement.setInt(1, userId);
                 preparedStatement.executeUpdate();
@@ -126,7 +153,13 @@ public class UserDao extends User {
     public User[] findAll() {
         User[] tempUsers = new User[0];
 
-        try (Connection db_manager_conn = DbUtil.getConnection()) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(All_QUERY);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -157,7 +190,14 @@ public class UserDao extends User {
 
     public int getUserIdFromDB(User user) {
         int id = 0;
-        try (Connection db_manager_conn = DbUtil.getConnection()) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
 //            String sql = "SELECT id FROM users where name LIKE  + '"+ user.getEmail() + "';";
             String sql = "SELECT id FROM users where name LIKE  + '" + user.getEmail() + "';";
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(sql);
@@ -176,7 +216,14 @@ public class UserDao extends User {
     }
 
     public static void showTableOfUsers() {
-        try (Connection db_manager_conn = DbUtil.getConnection()) {
+
+      try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+
+        try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
             DbUtil.printData(db_manager_conn, All_QUERY, "id", "name", "password", "email");
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -186,7 +233,14 @@ public class UserDao extends User {
 
     public boolean isIdExist(int id) {
         boolean result = false;
-        try (Connection db_manager_conn = DbUtil.getConnection()) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(All_QUERY);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -205,7 +259,14 @@ public class UserDao extends User {
 
     public boolean isUserExist(User user) {
         boolean result = false;
-        try (Connection db_manager_conn = DbUtil.getConnection()) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (Connection db_manager_conn = DbUtil.connect("db_workshop2")) {
             PreparedStatement preparedStatement = db_manager_conn.prepareStatement(All_QUERY);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

@@ -1,31 +1,20 @@
 package pl.indexpz.users;
 
-import pl.indexpz.utils.UserDao;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/user")
-public class UserList extends HttpServlet {
+@WebServlet( "/userShow")
+public class UserShow extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        UserDao userDao = new UserDao();
-        request.setAttribute("users", userDao.findAll());
-
-//       userDao.showTableOfUsers();
-
-
-        getServletContext().getRequestDispatcher("/user/list.jsp").forward(request, response);
-
+        getServletContext().getRequestDispatcher("/user/show.jsp").forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
     }
 }
