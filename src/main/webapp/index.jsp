@@ -3,10 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv = "refresh" content = "0; http://localhost:8080/userList" />
     <title>Title</title>
 </head>
-<body>
-<p><a href="/user/list.jsp">Panel</a></p>
-<p><a href="/user">Servlet</a></p>
-</body>
-</html>
+<%@ include file="/user/header.jsp" %>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+
+</div>
+
+<%@ include file="/user/footer.jsp" %>

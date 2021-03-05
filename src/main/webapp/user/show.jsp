@@ -11,19 +11,36 @@
         <a href='<c:url value="/userAdd"/>' class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i> Dodaj użytkownika</a>
     </div>
-    <div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Imię</th>
+                        <th>Email</th>
+                        <th>Akcja</th>
+                    </tr>
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>
+                            <a href='<c:url value="/userDelete?id=${user.id}"/>'>Usuń</a>
+                            <a href='<c:url value="/userEdit?id=${user.id}"/>'>Edit</a>
+<%--                            <a href='<c:url value="/userShow?id=${user.id}"/>'>Pokaż</a>--%>
+                        </td>
+                        </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td> <a href='<c:url value="/userList"/>'>Lista</a></td>
+                    </tr>
 
-        <form method="post">
-
-
-                <p><input type="text" name="name" placeholder="imię"></p>
-                <p> <input type="text" name="email" placeholder="email"></p>
-
-<%--                UWAGA zmienić na type="password"--%>
-                <p> <input type="text" name="password" placeholder="hasło"></p>
-                <p> <input type="submit" name="save" value="Zapisz"></p>
-
-        </form>
+                </table>
+            </h6>
+        </div>
     </div>
 
 </div>

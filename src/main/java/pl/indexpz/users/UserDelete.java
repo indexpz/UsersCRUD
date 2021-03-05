@@ -1,5 +1,6 @@
 package pl.indexpz.users;
 
+import pl.indexpz.utils.User;
 import pl.indexpz.utils.UserDao;
 
 import javax.servlet.*;
@@ -12,7 +13,10 @@ import java.util.Map;
 public class UserDelete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String id = request.getParameter("id");
+        UserDao userDao = new UserDao();
+        User read = userDao.read(Integer.parseInt(id));
+        request.setAttribute("user", read);
 
         getServletContext().getRequestDispatcher("/user/delete.jsp").forward(request, response);
 
@@ -21,17 +25,15 @@ public class UserDelete extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String[] parameterArray = request.getParameterValues("id");
 
-        int id = Integer.parseInt(parameterArray[0]);
+        int id = Integer.parseInt(request.getParameter("id"));
 
         UserDao userDao = new UserDao();
-        request.setAttribute("id", userDao.read(id));
+        request.setAttribute("user", userDao.read(id));
 
-        System.out.println(userDao.read(id));
 
         userDao.delete(id);
-
+        response.sendRedirect(request.getContextPath() + "/userList");
 
 
     }

@@ -15,6 +15,8 @@
         <div class="card-header py-3">
             <h6 class="table-responsive">
                 <table class="table">
+                    <form method="post">
+
                     <tr>
                         <th>Id</th>
                         <th>Imię</th>
@@ -22,22 +24,27 @@
                         <th>Akcja</th>
                     </tr>
                     <tr>
-<c:forEach items="${id}" var="user">
                         <td>${user.id}</td>
                         <td>${user.name}</td>
                         <td>${user.email}</td>
-                     <form>
-                         <input type="submit" value="Usuń">
-                     </form>
+                        <td>
+                            <a href='<c:url value="/userEdit?id=${user.id}"/>'>Edit</a>
+                        </td>
                     </tr>
-
-                    </c:forEach>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button><a href='<c:url value="/userList"/>'>Anuluj</a></button>
+                            <a> </a>
+                            <input type="submit" value="Usuń"></td>
+                    </tr>
+                </form>
                 </table>
             </h6>
         </div>
     </div>
-
 </div>
-
-<%@ include file="/user/footer.jsp" %>
+    <%@ include file="/user/footer.jsp" %>
 

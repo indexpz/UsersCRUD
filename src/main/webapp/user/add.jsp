@@ -21,7 +21,7 @@
 
 <%--                UWAGA zmienić na type="password"--%>
                 <p> <input type="text" name="password" placeholder="hasło"></p>
-            <p href="<c:url value="/user" />"> <input type="submit" name="save"  value="Zapisz"></p>
+            <p href="<c:url value="/userList" />"> <input type="submit" name="save"  value="Zapisz"></p>
 
         </form>
     </div>
