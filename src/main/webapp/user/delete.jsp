@@ -14,37 +14,41 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="table-responsive">
-                <table class="table">
-                    <form method="post">
+                <form method="post">
+                    <table class="table">
 
-                    <tr>
-                        <th>Id</th>
-                        <th>Imię</th>
-                        <th>Email</th>
-                        <th>Akcja</th>
-                    </tr>
-                    <tr>
-                        <td>${user.id}</td>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>
-                            <a href='<c:url value="/userEdit?id=${user.id}"/>'>Edit</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button><a href='<c:url value="/userList"/>'>Anuluj</a></button>
-                            <a> </a>
-                            <input type="submit" value="Usuń"></td>
-                    </tr>
+
+                        <tr>
+                            <th>Id</th>
+                            <th>Imię</th>
+                            <th>Email</th>
+                            <th>Akcja</th>
+                        </tr>
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>
+                                <a href='<c:url value="/userEdit?id=${user.id}"/>'>Edit</a>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+
+                    </table>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Usuń</button>
+                    </div>
                 </form>
-                </table>
             </h6>
         </div>
     </div>
 </div>
-    <%@ include file="/user/footer.jsp" %>
+<%@ include file="/user/footer.jsp" %>
 

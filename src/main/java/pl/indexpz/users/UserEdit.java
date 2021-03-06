@@ -22,9 +22,9 @@ public class UserEdit extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String userName = request.getParameter("userName");
-        String userEmail = request.getParameter("userEmail");
-        String userPassword = request.getParameter("userPassword");
+        String userName = request.getParameter("name");
+        String userEmail = request.getParameter("email");
+        String userPassword = request.getParameter("password");
 
         UserDao userDao = new UserDao();
 

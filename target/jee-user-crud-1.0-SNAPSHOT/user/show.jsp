@@ -15,6 +15,7 @@
         <div class="card-header py-3">
             <h6 class="table-responsive">
                 <table class="table">
+
                     <tr>
                         <th>Id</th>
                         <th>Imię</th>
@@ -35,10 +36,15 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td> <a href='<c:url value="/userList"/>'>Lista</a></td>
+                        <td></td>
+
                     </tr>
 
                 </table>
+                <div>
+
+                    <a  href='<c:url value="/userList"/>'> <button class="btn btn-primary" >Lista</button></a>
+                </div>
             </h6>
         </div>
     </div>
